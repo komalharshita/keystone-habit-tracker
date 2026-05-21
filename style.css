@@ -1,0 +1,1134 @@
+/* 
+ * style.css - Keystone Habit Tracker Design System
+ * Inspired by premium, minimalist, and calming lifestyle productivity dashboards.
+ * Designed with a soft neutral linen palette, high-end typography, 
+ * CSS-only custom graphs, micro-animations, and full mobile responsiveness.
+ */
+
+:root {
+  /* Soft Neutral Color Tokens */
+  --bg-primary: hsl(40, 24%, 98%);     /* Soft linen warm off-white */
+  --bg-secondary: hsl(0, 0%, 100%);   /* Pristine white for cards */
+  --bg-tertiary: hsl(40, 15%, 95%);    /* Subtle light-gray/cream fields */
+  
+  --border-color: hsl(45, 12%, 91%);    /* Warm delicate dividers */
+  --border-focus: hsl(20, 10%, 40%);    /* Focus states outline */
+  
+  /* Text Muting Scale */
+  --text-primary: hsl(210, 15%, 12%);   /* Rich deep-charcoal for high readability */
+  --text-secondary: hsl(210, 10%, 42%); /* Elegant muted grey for details */
+  --text-tertiary: hsl(210, 8%, 62%);   /* Very light grey for labels */
+
+  /* Pastel Lifestyle Accents (matching uploaded dashboard reference) */
+  --accent-primary: hsl(150, 60%, 40%);   /* Calming emerald green (completions) */
+  --accent-primary-light: hsl(150, 60%, 94%);
+  
+  --accent-secondary: hsl(12, 76%, 61%);  /* Mindful coral red (today, streaks) */
+  --accent-secondary-light: hsl(12, 76%, 95%);
+  
+  --accent-blue: hsl(200, 70%, 50%);       /* Tranquil sky blue (breathing timer) */
+  --accent-blue-light: hsl(200, 70%, 95%);
+  
+  --accent-yellow: hsl(42, 90%, 55%);      /* Warm sunset gold (favorites, warnings) */
+  --accent-yellow-light: hsl(42, 90%, 95%);
+
+  /* Border Radius & Shadow Tokens */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  
+  --shadow-sm: 0 2px 8px -1px rgba(139, 133, 122, 0.04);
+  --shadow-md: 0 10px 30px -5px rgba(139, 133, 122, 0.06);
+  --shadow-lg: 0 20px 50px -10px rgba(139, 133, 122, 0.09);
+
+  /* Animation Timings */
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-fast: all 0.15s ease;
+}
+
+/* ==========================================================================
+   RESET & SYSTEM BASICS
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+button, input, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Custom Scrollbars for aesthetic consistency */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-tertiary);
+  border-radius: var(--radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ==========================================================================
+   GRID LAYOUT STRUCTURE
+   ========================================================================== */
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 260px 1fr 310px;
+  min-height: 100vh;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   SHARED UI ELEMENTS (BUTTONS, CARDS, MODALS)
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition-fast);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-primary {
+  background-color: var(--text-primary);
+  color: var(--bg-secondary);
+}
+.btn-primary:hover {
+  background-color: hsl(210, 15%, 25%);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+.btn-secondary:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--text-tertiary);
+}
+
+.btn-tertiary {
+  background-color: transparent;
+  color: var(--text-secondary);
+  text-decoration: underline;
+}
+.btn-tertiary:hover {
+  color: var(--text-primary);
+}
+
+.dashboard-card, .sidebar-widget, .analytics-card, .right-panel-card, .calendar-nav-card, .habit-grid-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 24px;
+  transition: var(--transition-smooth);
+}
+
+.dashboard-card:hover, .analytics-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.card-header h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.card-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   LEFT SIDEBAR WIDGETS
+   ========================================================================== */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--text-primary);
+}
+.logo-text {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.5px;
+}
+
+.profile-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.profile-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+}
+
+/* Sidebar Widgets specifics */
+.greeting-card {
+  background: linear-gradient(135deg, hsl(210, 15%, 15%), hsl(210, 15%, 8%));
+  color: var(--bg-secondary);
+}
+.greeting-card h3 {
+  color: var(--bg-secondary);
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+.greeting-subtitle {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+}
+
+/* Breathing Timer Card */
+.timer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.timer-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.timer-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.timer-subtitle {
+  font-size: 0.75rem;
+  color: var(--accent-blue);
+  background-color: var(--accent-blue-light);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.timer-display {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: -1px;
+  margin: 10px 0;
+  color: var(--text-primary);
+}
+.timer-progress-container {
+  width: 100%;
+  margin-bottom: 18px;
+}
+.timer-ring {
+  display: block;
+}
+#timer-progress {
+  transition: stroke-dashoffset 1s linear;
+}
+.timer-controls {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+.timer-controls button {
+  flex: 1;
+}
+
+/* Quote card */
+.quote-card {
+  background-color: var(--bg-primary);
+  border: 1px dashed var(--border-color);
+  box-shadow: none;
+  font-style: italic;
+  text-align: center;
+}
+.quote-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.quote-author {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  font-style: normal;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.add-habit-shortcut {
+  width: 100%;
+  padding: 14px;
+}
+
+/* ==========================================================================
+   CENTER MAIN PANEL (HEADER, CALENDAR NAV, MAIN GRID)
+   ========================================================================== */
+
+.main-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0; /* Prevents flex items from overflowing horizontal space */
+}
+
+/* Top Header Bar */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main-header h1 {
+  font-size: 1.85rem;
+  letter-spacing: -0.5px;
+}
+.header-sub {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  width: 240px;
+  box-shadow: var(--shadow-sm);
+}
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 0.88rem;
+}
+.search-bar input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.ask-ai-btn {
+  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, hsl(330, 80%, 97%), hsl(220, 80%, 97%));
+  border: 1px solid hsl(260, 50%, 90%);
+}
+.ask-ai-btn:hover {
+  background: linear-gradient(135deg, hsl(330, 80%, 94%), hsl(220, 80%, 94%));
+}
+.sparkle-icon {
+  font-size: 0.95rem;
+}
+
+/* Calendar Week Nav */
+.calendar-nav-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+.nav-month-year {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-arrow-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+.nav-arrow-btn:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--text-tertiary);
+}
+.btn-today {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   HABIT GRID TABLE WIDGET
+   ========================================================================== */
+
+.habit-grid-card {
+  padding: 0; /* Keep edge-to-edge look inside the grid card */
+  overflow: hidden;
+}
+
+.table-responsive-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.habit-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Table Header Styles */
+.habit-table th {
+  padding: 16px 20px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  user-select: none;
+}
+
+.col-habit-name {
+  min-width: 220px;
+  position: sticky;
+  left: 0;
+  background-color: var(--bg-secondary);
+  z-index: 10;
+}
+.col-day {
+  text-align: center;
+  min-width: 65px;
+}
+.col-streak {
+  text-align: center;
+  min-width: 85px;
+  color: var(--accent-secondary) !important;
+}
+
+/* Highlighting Today's Column */
+.habit-table th.today-col {
+  color: var(--accent-secondary);
+  font-weight: 700;
+  position: relative;
+}
+.habit-table th.today-col::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  right: 30%;
+  height: 3px;
+  background-color: var(--accent-secondary);
+  border-radius: 3px 3px 0 0;
+}
+
+.habit-table td.today-col {
+  background-color: hsla(12, 76%, 61%, 0.015);
+}
+
+/* Table Row Styles */
+.habit-table tr {
+  transition: background-color 0.15s ease;
+}
+.habit-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+}
+.habit-table tbody tr:last-child {
+  border-bottom: none;
+}
+.habit-table tbody tr:hover {
+  background-color: var(--bg-primary);
+}
+
+.habit-table td {
+  padding: 14px 20px;
+  vertical-align: middle;
+}
+
+/* Habit Name & Row Actions */
+.habit-name-cell {
+  position: sticky;
+  left: 0;
+  background-color: var(--bg-secondary);
+  z-index: 10;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+tr:hover .habit-name-cell {
+  background-color: var(--bg-primary);
+}
+
+.habit-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.habit-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.habit-actions {
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+tr:hover .habit-actions {
+  opacity: 1;
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+.btn-action:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+.btn-delete:hover {
+  color: var(--accent-secondary);
+  background-color: var(--accent-secondary-light);
+}
+
+/* Toggle Checkmarks Cell Styling */
+.td-day-check {
+  text-align: center;
+}
+
+.habit-checkbox {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: var(--transition-smooth);
+  position: relative;
+  outline: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.habit-checkbox:hover {
+  border-color: var(--text-tertiary);
+  background-color: var(--bg-primary);
+  transform: scale(1.05);
+}
+
+/* Toggle Checkmark States */
+.habit-checkbox.checked {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--bg-secondary);
+  animation: checkbox-bounce 0.25s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+}
+.habit-checkbox.checked svg {
+  stroke-dashoffset: 0;
+}
+
+.habit-checkbox svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.2s ease-in-out;
+}
+
+/* Streak Indicator Styling */
+.streak-cell-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.streak-icon {
+  width: 16px;
+  height: 16px;
+  animation: float-flame 2s ease-in-out infinite;
+}
+
+/* Empty State Styling */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 60px 40px;
+}
+.empty-state-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+}
+.empty-state h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+.empty-state p {
+  color: var(--text-secondary);
+  max-width: 360px;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Hidden Utility class */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   DATA TRACK ANALYTICS STYLING (BAR CHARTS, WIDGETS)
+   ========================================================================== */
+
+.analytics-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* Favorite Habit Analytics Card */
+.fav-habit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.fav-habit-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.fav-habit-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  max-width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rate-badge {
+  font-size: 0.85rem;
+  color: var(--accent-primary);
+  background-color: var(--accent-primary-light);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* CSS-Only Bar Chart */
+.fav-habit-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+.chart-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.chart-habit-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chart-bar-bg {
+  flex: 1;
+  height: 8px;
+  background-color: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--accent-primary);
+  width: 0%; /* Dynamic */
+  transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+/* Colorful variant colors for other habits */
+.chart-row:nth-child(even) .chart-bar-fill {
+  background-color: var(--accent-blue);
+}
+.chart-row:nth-child(3n) .chart-bar-fill {
+  background-color: var(--accent-yellow);
+}
+.chart-habit-val {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 32px;
+  text-align: right;
+}
+
+/* Weekly Trend Bar Chart */
+.trend-chart-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 120px;
+}
+.trend-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  height: 100px;
+  padding: 0 10px;
+}
+.trend-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.trend-bar {
+  width: 16px;
+  height: 0%; /* Set dynamically */
+  background-color: var(--bg-tertiary);
+  border-radius: 10px 10px 0 0;
+  transition: height 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+/* Today's trend bar highlight */
+.trend-bar-wrapper.today-bar .trend-bar {
+  background-color: var(--accent-secondary);
+}
+.trend-bar-wrapper:not(.today-bar) .trend-bar {
+  background-color: var(--accent-primary);
+}
+.trend-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+.trend-bar-wrapper.today-bar .trend-label {
+  color: var(--accent-secondary);
+}
+
+/* ==========================================================================
+   RIGHT PANEL (CHECKLIST & REFLECTIVE JOURNALING)
+   ========================================================================== */
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Checklist items widget */
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.checklist-item.done {
+  text-decoration: line-through;
+  color: var(--text-tertiary);
+  border-color: rgba(0,0,0,0.02);
+  background-color: var(--bg-tertiary);
+}
+
+.checklist-status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+}
+.checklist-item.done .checklist-status-indicator {
+  background-color: var(--text-tertiary);
+}
+
+/* Mindful Journaling Card */
+.journaling-card {
+  position: relative;
+  overflow: hidden;
+}
+.journal-prompt-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Sparkle backdrop to mirror the design in the image */
+.sparkle-background {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(235, 94, 85, 0.12) 0%, rgba(255,255,255,0) 70%);
+  z-index: 1;
+}
+
+.journal-prompt-area h4 {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.journal-prompt-area textarea {
+  width: 100%;
+  height: 110px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  padding: 12px;
+  font-size: 0.88rem;
+  outline: none;
+  resize: none;
+  transition: var(--transition-fast);
+  color: var(--text-primary);
+}
+.journal-prompt-area textarea:focus {
+  border-color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+}
+
+.journal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+.save-status {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.save-status.saving {
+  color: var(--accent-blue);
+}
+
+/* ==========================================================================
+   MODAL OVERLAY & DIALOG DIALOG
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 28, 30, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.modal-content {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 30px;
+  width: 440px;
+  max-width: 90%;
+  animation: modal-enter 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.modal-header h2 {
+  font-size: 1.35rem;
+}
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+  color: var(--text-tertiary);
+}
+.modal-close-btn:hover {
+  color: var(--text-primary);
+}
+
+.form-group {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-group label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+.form-group input {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  outline: none;
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+.form-group input:focus {
+  border-color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   ANIMATION KEYFRAMES
+   ========================================================================== */
+
+@keyframes checkbox-bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes modal-enter {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes float-flame {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY KEYBOARD NAVIGATION OUTLINE
+   ========================================================================== */
+
+*:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS (1024px, 768px, 360px)
+   ========================================================================== */
+
+/* Laptop screens adjustment */
+@media (max-width: 1200px) {
+  .dashboard-container {
+    grid-template-columns: 240px 1fr; /* Drop Right Panel in favor of 2 columns */
+  }
+  .right-panel {
+    grid-column: span 2; /* Move Right Panel to bottom */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+/* Tablet screens adjustment */
+@media (max-width: 900px) {
+  .dashboard-container {
+    grid-template-columns: 1fr; /* Switch to complete single column */
+    padding: 16px;
+    gap: 20px;
+  }
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .sidebar-header {
+    grid-column: span 2;
+  }
+  .greeting-card {
+    grid-column: span 2;
+  }
+  .add-habit-shortcut {
+    grid-column: span 2;
+  }
+  .right-panel {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Screens (down to 360px) */
+@media (max-width: 600px) {
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+  .sidebar-header, .greeting-card, .add-habit-shortcut {
+    grid-column: span 1;
+  }
+  .analytics-row {
+    grid-template-columns: 1fr; /* Stack analytics widgets */
+  }
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .search-bar {
+    width: 100%;
+    flex: 1;
+  }
+  .nav-month-year {
+    font-size: 1rem;
+  }
+  .habit-table th, .habit-table td {
+    padding: 12px 14px;
+  }
+  .empty-state {
+    padding: 30px 16px;
+  }
+}

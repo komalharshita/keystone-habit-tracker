@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Keystone - A clean, calming productivity dashboard and weekly habit tracker with custom analytics, streaks, and mindful journaling.">
+  <title>Keystone — Mindful Habit Tracker & Dashboard</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Core Design Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" aria-label="Sidebar Navigation">
+      <div class="sidebar-header">
+        <div class="logo-area">
+          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text">Keystone</span>
+        </div>
+        <div class="profile-pill">
+          <span class="profile-name" id="user-greeting">Hi, Elena</span>
+          <div class="status-indicator"></div>
+        </div>
+      </div>
+      
+      <!-- Greeting Widget -->
+      <div class="sidebar-widget greeting-card">
+        <h3>Let's build consistency today</h3>
+        <p class="greeting-subtitle">Focus on your core routines to unlock cumulative growth.</p>
+      </div>
+
+      <!-- Breathing/Quiet Time Timer -->
+      <div class="sidebar-widget timer-card">
+        <div class="timer-header">
+          <span class="timer-title">Quiet Time</span>
+          <span class="timer-subtitle" id="timer-status">Breathing space</span>
+        </div>
+        <div class="timer-display" id="timer-display">10:00</div>
+        
+        <!-- Interactive Timer Ring -->
+        <div class="timer-progress-container">
+          <svg class="timer-ring" width="100%" height="8" viewBox="0 0 100 8">
+            <line x1="0" y1="4" x2="100" y2="4" stroke="rgba(0,0,0,0.05)" stroke-width="4" stroke-linecap="round"/>
+            <line id="timer-progress" x1="0" y1="4" x2="100" y2="4" stroke="var(--accent-primary)" stroke-width="4" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+
+        <div class="timer-controls">
+          <button id="btn-timer-toggle" class="btn btn-secondary">Start Session</button>
+          <button id="btn-timer-reset" class="btn btn-tertiary">Reset</button>
+        </div>
+      </div>
+
+      <!-- Inspirational Quote Card -->
+      <div class="sidebar-widget quote-card">
+        <p class="quote-text">"The smallest steps are still progress."</p>
+        <span class="quote-author">— Keystone Mind</span>
+      </div>
+
+      <!-- Add New Habit Button (Shortcut) -->
+      <button id="btn-sidebar-add-habit" class="btn btn-primary add-habit-shortcut">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Add Habit
+      </button>
+    </aside>
+
+    <!-- CENTER MAIN PANEL -->
+    <main class="main-panel" aria-label="Main Dashboard">
+      
+      <!-- Top header bar -->
+      <header class="main-header">
+        <div class="header-left">
+          <h1>Dashboard</h1>
+          <p class="header-sub" id="header-date-indicator">Thursday, May 21, 2026</p>
+        </div>
+        <div class="header-actions">
+          <div class="search-bar">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Search habits..." id="search-input">
+          </div>
+          <button class="btn btn-secondary ask-ai-btn">
+            <span class="sparkle-icon">✨</span> Ask AI
+          </button>
+        </div>
+      </header>
+
+      <!-- Calendar / Week Navigation Bar -->
+      <section class="calendar-nav-card" aria-label="Calendar Navigation">
+        <div class="nav-info">
+          <span class="nav-month-year" id="nav-month-year">Januari, 2025</span>
+        </div>
+        <div class="nav-buttons">
+          <button id="btn-prev-week" class="nav-arrow-btn" aria-label="Previous Week">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button id="btn-current-week" class="btn btn-secondary btn-today">Today</button>
+          <button id="btn-next-week" class="nav-arrow-btn" aria-label="Next Week">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- CORE HABIT GRID SECTION -->
+      <section class="habit-grid-card" aria-label="Habits Weekly Grid">
+        
+        <!-- Empty State Container -->
+        <div class="empty-state hidden" id="grid-empty-state">
+          <div class="empty-state-icon">🌱</div>
+          <h2>Build your perfect week</h2>
+          <p>You haven't defined any daily habits yet. Start small to unlock consistent momentum.</p>
+          <button id="btn-empty-add-habit" class="btn btn-primary">Create Your First Habit</button>
+        </div>
+
+        <!-- The Table/Grid Interface -->
+        <div class="table-responsive-wrapper" id="grid-table-wrapper">
+          <table class="habit-table" id="habit-table">
+            <thead>
+              <tr id="table-header-row">
+                <th class="col-habit-name">Habit</th>
+                <th class="col-day">Mon</th>
+                <th class="col-day">Tue</th>
+                <th class="col-day">Wed</th>
+                <th class="col-day">Thu</th>
+                <th class="col-day">Fri</th>
+                <th class="col-day">Sat</th>
+                <th class="col-day">Sun</th>
+                <th class="col-streak">Streak</th>
+              </tr>
+            </thead>
+            <tbody id="habit-table-body">
+              <!-- Habit Rows will be dynamically rendered here by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- DATA TRACK ANALYTICS WIDGETS -->
+      <section class="analytics-row" aria-label="Data Analytics Insights">
+        
+        <!-- Favorite Habit Card -->
+        <div class="analytics-card fav-habit-card">
+          <div class="card-header">
+            <h3>Favorite Habit</h3>
+            <span class="card-subtitle">Highest completion rate</span>
+          </div>
+          <div class="fav-habit-content" id="fav-habit-content">
+            <!-- Rendered dynamically -->
+            <div class="fav-habit-stat">
+              <span class="fav-habit-name" id="fav-habit-name">—</span>
+              <div class="rate-badge">
+                <span id="fav-habit-rate">0%</span> vs last month
+              </div>
+            </div>
+            <!-- Custom CSS Animated Bar chart comparing habits -->
+            <div class="fav-habit-chart" id="fav-habit-chart">
+              <!-- Bars loaded dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly Activity Trend Card -->
+        <div class="analytics-card trend-card">
+          <div class="card-header">
+            <h3>Weekly Activity Trend</h3>
+            <span class="card-subtitle">Completion rate by day of current week</span>
+          </div>
+          <div class="trend-content">
+            <div class="trend-chart-container">
+              <!-- 7 Custom Bars for Weekday aggregates -->
+              <div class="trend-chart" id="trend-bar-chart">
+                <div class="trend-bar-wrapper">
+                  <div class="trend-bar" style="height: 0%"></div>
+                  <span class="trend-label">M</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                  <div class="trend-bar" style="height: 0%"></div>
+                  <span class="trend-label">T</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                  <div class="trend-bar" style="height: 0%"></div>
+                  <span class="trend-label">W</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                  <div class="trend-bar" style="height: 0%"></div>
+                  <span class="trend-label">T</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                  <div class="trend-bar" style="height: 0%"></div>
+                  <span class="trend-label">F</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                  <div class="trend-bar" style="height: 0%"></div>
+                  <span class="trend-label">S</span>
+                </div>
+                <div class="trend-bar-wrapper">
+                  <div class="trend-bar" style="height: 0%"></div>
+                  <span class="trend-label">S</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- RIGHT PANEL: JOURNAL & MINDFUL ROUTINES -->
+    <aside class="right-panel" aria-label="Routines & Mindful Reflection">
+      
+      <!-- Today's Routine List -->
+      <div class="right-panel-card routines-card">
+        <div class="card-header">
+          <h3>Daily Checklist</h3>
+          <span class="card-subtitle" id="daily-checklist-date">May 21, 2026</span>
+        </div>
+        <div class="checklist-items" id="checklist-items">
+          <!-- Rendered dynamically for selected date -->
+        </div>
+      </div>
+
+      <!-- Mindful Journaling Widget -->
+      <div class="right-panel-card journaling-card">
+        <div class="card-header">
+          <h3>Journaling</h3>
+          <span class="card-subtitle">LET'S TRY NEW FEATURE</span>
+        </div>
+        <div class="journal-prompt-area">
+          <div class="sparkle-background"></div>
+          <h4>Write a summary of your day</h4>
+          <textarea id="journal-input" placeholder="How did today feel? Note any patterns or learnings..."></textarea>
+          <div class="journal-footer">
+            <span class="save-status" id="journal-save-status">Saved locally</span>
+            <button id="btn-save-journal" class="btn btn-primary btn-sm">Save Entry</button>
+          </div>
+        </div>
+      </div>
+      
+    </aside>
+
+  </div>
+
+  <!-- ADD/EDIT HABIT MODAL DIALOG -->
+  <div id="habit-modal" class="modal-overlay hidden" aria-hidden="true" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add New Habit</h2>
+        <button id="btn-modal-close" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="habit-form">
+        <input type="hidden" id="modal-habit-id" value="">
+        <div class="form-group">
+          <label for="habit-name-input">Habit Name</label>
+          <input type="text" id="habit-name-input" placeholder="e.g., Read 30 min, Meditation" required maxlength="45">
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="btn-modal-cancel" class="btn btn-secondary">Cancel</button>
+          <button type="submit" id="btn-modal-submit" class="btn btn-primary">Save Habit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
