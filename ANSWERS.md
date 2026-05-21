@@ -1,6 +1,6 @@
 # Fellowship Frontend Assessment Answers: Keystone Habit Tracker
 
-This document provides detailed answers to the five fellowship evaluation questions, framed from the perspective of a **Data Engineering** track candidate.
+This document provides all the detailed answers to the five fellowship evaluation questions.
 
 ---
 
@@ -31,7 +31,7 @@ The project is deployed and live at:
 ### 2. Stack & Design Choices
 
 #### Why this Stack?
-As a **Data Engineering** candidate, my architectural philosophy values **simplicity, performance, and deterministic behavior**. I selected pure **Vanilla HTML, CSS, and JS (Zero Dependencies)** over frameworks like React or Vue for three major reasons:
+As a **Data Engineering** candidate, my architectural philosophy values **simplicity, performance, and deterministic behavior**. I selected pure **Vanilla HTML, CSS, and JS** over frameworks like React or Vue for three major reasons:
 1. **Zero Runtime Overhead**: The app runs natively, instantly compiling in the browser with no build pipelines, bundle bloat, or package vulnerability risks.
 2. **Explicit State Control**: Managing state with native ES6 classes allows me to write clean, transparent data transformation pipelines without the reactivity abstractions of external libraries.
 3. **Impeccable Portability**: The examiner can open the codebase on a completely fresh machine and it will load flawlessly in milliseconds.
