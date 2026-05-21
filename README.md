@@ -6,7 +6,7 @@ Designed with soft, neutral lifestyle tones to create a more mindful digital con
 
 ---
 
-## ✨ Features
+## Features
 
 - **Weekly Habit Grid**: View and toggle your habits down the left, across a 7-day Monday-start grid. Today's column is highlighted to anchor focus.
 - **Active Streaks**: A user-friendly streak tracker that keeps your momentum alive throughout the day.
@@ -21,7 +21,7 @@ Designed with soft, neutral lifestyle tones to create a more mindful digital con
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 Since this is a vanilla client-side application, **no installation or build steps are required**.
 
@@ -54,7 +54,7 @@ If you have Python installed, you can launch a lightweight web server to serve t
 
 ---
 
-## 🧑‍💻 Technical Highlights (Data Engineering Focus)
+## Technical Highlights
 
 - **Database Normalization**: Decouples the master habits array from the completion logs. Instead of nesting dates inside habits (which requires $O(N)$ lookup scans), completions are stored flat as composite key lookups (`habitId:dateStr`), enabling instant $O(1)$ checks.
 - **Timezone-Safe Dates**: All completion logs and journal entries are stamped using local `YYYY-MM-DD` strings, ensuring consistency even if the user travels across timezones.

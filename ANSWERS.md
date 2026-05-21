@@ -11,7 +11,7 @@ Since this project was built using a clean, dependency-free **Vanilla HTML5, CSS
 
 1. **Clone the Repository**:
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/komalharshita/keystone-habit-tracker.git
    cd keystone-habit-tracker
    ```
 2. **Launch the App**:
@@ -24,7 +24,7 @@ Since this project was built using a clean, dependency-free **Vanilla HTML5, CSS
 
 #### Deployed URL
 The project is deployed and live at:
-🔗 **[Deploy URL to be filled here, e.g., https://komal.github.io/keystone-habit-tracker/]**
+🔗 **[[Visit deployed website](https://komalharshita.github.io/keystone-habit-tracker/)]**
 
 ---
 
